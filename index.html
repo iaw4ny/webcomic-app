@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script type="text/javascript">
+    //window.$ = window.jQuery = require(__dirname+'/node_modules/jquery/src/jquery.js');
+    //window.$ = window.jQuery = require('node_modules/jquery/src/jquery.js');
+</script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="mystyle.css">
+    <title>Web comic app!</title>
+  </head>
+  <body>
+  	<div class="heading">
+    <h3>Copy paste the Url in the text box</h3>
+	</div>
+	<div class="url-box">
+	    <form>
+	    	URL
+			<input type="text" name="url" id="url" value="http://www.amazingsuperpowers.com/2015/07/cover-letters/">
+			<button type="button" class="save-button" onclick="change()">Save URL!</button>
+		</form>
+	</div>
+
+
+   <!-- <div class="iframe">
+    <iframe src="http://www.amazingsuperpowers.com/2015/07/cover-letters/" id="Iframe"></iframe>
+	</div> -->
+<!--
+	<webview id="foo" src="http://www.amazingsuperpowers.com/2015/07/cover-letters/" style="display:inline-block; width:1200px; height:800px">
+	</webview>  -->
+
+	<webview id="foo" src="http://www.amazingsuperpowers.com/2015/07/cover-letters/" style="display:inline-block; width:640px; height:480px"></webview>
+  </body>
+
+<script>
+function change() {
+    //alert("hello");
+
+//var elem = document.getElementById("foo");
+//var url = elem.getUrl();
+//elem.value = url;
+//alert(elem.value);
+
+var url = foo.getUrl();
+
+alert(url);
+
+var fs = require('fs');
+
+fs.writeFile("test", url, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+}); 
+
+
+   // $('input.url').val('hello');   
+}
+</script>
+
+<script>
+  onload = function() {
+    var webview = document.getElementById("foo");
+    //var indicator = document.querySelector(".indicator");
+
+    var loadstart = function() {
+     // indicator.innerText = "loading...";
+    }
+    var loadstop = function() {
+     // indicator.innerText = "";
+
+
+      var url = webview.getUrl();
+      var fs = require('fs');
+
+fs.writeFile("test", url, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+}); 
+
+
+    }
+    webview.addEventListener("did-start-loading", loadstart);
+    webview.addEventListener("did-stop-loading", loadstop);
+  }
+
+</script>
+
+
+</html>
